@@ -1,0 +1,5 @@
+albumentations
+flask
+flask-cors
+numpy
+pillow
