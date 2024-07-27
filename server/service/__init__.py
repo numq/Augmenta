@@ -3,13 +3,17 @@ import io
 
 import numpy as np
 from PIL import Image
-from flask import Flask, jsonify, request
+from augmentation import augmentations
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
-from augmentation import augmentations
-
-service = Flask(__name__)
+service = Flask(__name__, static_folder="../../client/build")
 CORS(service)
+
+
+@service.route('/')
+def serve():
+    return send_from_directory(service.static_folder, "index.html")
 
 
 @service.route('/augmentations', methods=['GET'])
