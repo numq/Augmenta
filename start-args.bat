@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set AUGMENTATION_SERVICE_PORT=7862
+set AUGMENTATION_SERVICE_PORT=
 
 call start.bat
 
