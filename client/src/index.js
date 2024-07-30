@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <ApplicationComponent
-            title={'Augmentation UI'}
+            title={'numq/AugmentationUI'}
             augmentationService={augmentationService}
             presetService={presetService}
         />

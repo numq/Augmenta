@@ -7,8 +7,12 @@ import axiosRetry from "axios-retry";
 import {failure, Result, success} from "../result/Result";
 
 class AugmentationService {
+    private readonly urlScheme: string = (window as any).REACT_APP_AUGMENTATION_SERVICE_URL_SCHEME;
+    private readonly host: string = (window as any).REACT_APP_AUGMENTATION_SERVICE_HOST;
+    private readonly port: string = (window as any).REACT_APP_AUGMENTATION_SERVICE_PORT;
+
     private readonly client = axios.create({
-        baseURL: `http://127.0.0.1:${process.env.REACT_APP_AUGMENTATION_SERVICE_PORT}/`
+        baseURL: `${this.urlScheme}://${this.host}:${this.port}/`
     });
 
     constructor() {

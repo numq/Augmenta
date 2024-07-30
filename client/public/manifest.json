@@ -1,6 +1,6 @@
 {
-  "short_name": "Augmentation UI",
-  "name": "Augmentation UI",
+  "short_name": "numq/AugmentationUI",
+  "name": "numq/AugmentationUI",
   "icons": [
     {
       "src": "favicon.ico",
