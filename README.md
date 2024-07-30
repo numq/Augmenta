@@ -8,6 +8,7 @@ library
 ## Table of Content
 
 * [What is image augmentation](#what-is-image-augmentation)
+* [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Custom arguments](#custom-arguments)
