@@ -52,7 +52,7 @@ const SelectionComponent: React.FC<Props> = ({
                         <Tab
                             key={category}
                             label={(
-                                <Badge badgeContent={calculateCategoryQuantity(category)} color="primary">
+                                <Badge badgeContent={calculateCategoryQuantity(category)}>
                                     {category.toUpperCase()}
                                 </Badge>
                             )}
@@ -75,10 +75,7 @@ const SelectionComponent: React.FC<Props> = ({
                                         onClick={() => selectAugmentationIndex(index)}
                                         fullWidth
                                     >
-                                        <Badge
-                                            badgeContent={augmentation.quantity}
-                                            color="primary"
-                                        >
+                                        <Badge badgeContent={augmentation.quantity}>
                                             {augmentation.name}
                                         </Badge>
                                     </Button>

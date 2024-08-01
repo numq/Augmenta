@@ -96,7 +96,9 @@ const InputComponent: React.FC<Props> = ({images, isGenerating, upload, generate
                     </Box>
                     <Tooltip title={"Upload"}>
                     <span>
-                        <IconButton disabled={isGenerating || isDragActive} onClick={open}><Upload/></IconButton>
+                        <IconButton disabled={isGenerating || isDragActive} onClick={open}>
+                            <Upload/>
+                        </IconButton>
                     </span>
                     </Tooltip>
                     <Tooltip title={"Delete all images"}>
@@ -132,7 +134,8 @@ const InputComponent: React.FC<Props> = ({images, isGenerating, upload, generate
                                 flexGrow: 1,
                                 flexDirection: "column",
                                 alignItems: "center",
-                                justifyContent: "center"
+                                justifyContent: "center",
+                                color: 'primary'
                             }}>
                             <ImageIcon sx={{fontSize: '128px'}}/>
                             <Typography variant="h5">Drag and drop images here</Typography>
@@ -173,14 +176,13 @@ const InputComponent: React.FC<Props> = ({images, isGenerating, upload, generate
                                                 width: '20%',
                                                 height: '20%',
                                                 borderRadius: '0',
-                                                color: "white",
                                                 backgroundColor: "rgba(0, 0, 0, 0.5)",
                                                 position: 'absolute',
                                                 top: '0',
                                                 right: '0',
                                             }}
                                         >
-                                            <Close/>
+                                            <Close color='secondary'/>
                                         </IconButton>
                                     </Box>
                                 </Tooltip>);
@@ -202,9 +204,7 @@ const InputComponent: React.FC<Props> = ({images, isGenerating, upload, generate
                                 zIndex: 1000,
                             }}
                         >
-                            <Typography variant="h5" color="white">
-                                Drop files here
-                            </Typography>
+                            <Typography variant="h5">Drop files here</Typography>
                         </Box>
                     )}
                 </Box>

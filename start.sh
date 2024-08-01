@@ -10,6 +10,7 @@ export PUBLIC_URL=/build
 : "${AUGMENTATION_SERVICE_PORT:=5000}"
 : "${DISABLE_AUTO_OPEN:=0}"
 : "${API_ONLY:=0}"
+: "${THREAD_COUNT:=6}"
 
 if [ ! -d "venv" ]; then
     python3 -m venv venv

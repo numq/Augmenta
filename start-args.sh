@@ -5,5 +5,6 @@ export AUGMENTATION_SERVICE_HOST=
 export AUGMENTATION_SERVICE_PORT=
 export DISABLE_AUTO_OPEN=
 export API_ONLY=
+export THREAD_COUNT=
 
 ./start.sh

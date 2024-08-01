@@ -70,13 +70,16 @@ const OutputComponent: React.FC<Props> = ({images, regeneratingId, regenerate, r
                         <Typography>{"Click on any image to regenerate it"}</Typography>
                     </Box>
                     <Tooltip title={"Download"}>
-                        <IconButton disabled={regeneratingId !== null || images.length === 0} onClick={download}>
+                        <IconButton
+                            disabled={regeneratingId !== null || images.length === 0}
+                            onClick={download}>
                             <Download/>
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={"Delete all images"}>
-                        <IconButton disabled={regeneratingId !== null || images.length === 0}
-                                    onClick={clear}>
+                        <IconButton
+                            disabled={regeneratingId !== null || images.length === 0}
+                            onClick={clear}>
                             <Delete/>
                         </IconButton>
                     </Tooltip>
@@ -138,14 +141,13 @@ const OutputComponent: React.FC<Props> = ({images, regeneratingId, regenerate, r
                                                 width: '20%',
                                                 height: '20%',
                                                 borderRadius: '0',
-                                                color: "white",
                                                 backgroundColor: "rgba(0, 0, 0, 0.5)",
                                                 position: 'absolute',
                                                 top: '0',
                                                 right: '0',
                                             }}
                                         >
-                                            <Close/>
+                                            <Close color='secondary'/>
                                         </IconButton>
                                         {
                                             image.id === regeneratingId && (
@@ -175,7 +177,8 @@ const OutputComponent: React.FC<Props> = ({images, regeneratingId, regenerate, r
                                 flexGrow: 1,
                                 flexDirection: "column",
                                 alignItems: "center",
-                                justifyContent: "center"
+                                justifyContent: "center",
+                                color: 'primary'
                             }}>
                             <ImageIcon sx={{fontSize: '128px'}}/>
                             <Typography variant="h5">Processed images will be here</Typography>

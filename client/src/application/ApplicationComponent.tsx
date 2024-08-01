@@ -351,12 +351,9 @@ const ApplicationComponent: React.FC<Props> = ({title, augmentationService, pres
                     {
                         tabs.map((tab, index) => (
                             <Tab key={index} label={
-                                <Badge
-                                    badgeContent={
-                                        tab === ContentTab.Input ? state.inputImages.length : tab === ContentTab.Output ? state.outputImages.length : 0
-                                    }
-                                    color="primary"
-                                >
+                                <Badge badgeContent={
+                                    tab === ContentTab.Input ? state.inputImages.length : tab === ContentTab.Output ? state.outputImages.length : 0
+                                }>
                                     <Typography>{tab}</Typography>
                                 </Badge>
                             }/>

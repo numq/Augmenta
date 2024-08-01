@@ -87,7 +87,7 @@ const PreviewComponent: React.FC<Props> = ({
                         aspectRatio: 1,
                         alignItems: "center",
                         justifyContent: "center",
-                        overflow: 'hidden'
+                        overflow: 'hidden',
                     }}>
                         {inputImage ? (
                             <img
@@ -113,9 +113,7 @@ const PreviewComponent: React.FC<Props> = ({
                                     zIndex: 1000,
                                 }}
                             >
-                                <Typography variant="h5" color="white">
-                                    Drop file here
-                                </Typography>
+                                <Typography variant="h5">Drop file here</Typography>
                             </Box>
                         )}
                     </Card>
@@ -126,16 +124,18 @@ const PreviewComponent: React.FC<Props> = ({
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
-                    <Card sx={{
-                        height: "100%",
-                        display: "flex",
-                        flexBasis: 0,
-                        flexGrow: 1,
-                        aspectRatio: 1,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        overflow: 'hidden'
-                    }}>
+                    <Card
+                        sx={{
+                            height: "100%",
+                            display: "flex",
+                            flexBasis: 0,
+                            flexGrow: 1,
+                            aspectRatio: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            overflow: 'hidden'
+                        }}
+                    >
                         {
                             outputImage ? (
                                 <img
@@ -145,7 +145,8 @@ const PreviewComponent: React.FC<Props> = ({
                                     style={{width: "100%", height: "100%", objectFit: "cover"}}
                                 />
                             ) : (
-                                !isGenerating && (<ImageNotSupportedIcon sx={{width: "50%", height: "50%"}}/>)
+                                !isGenerating && (
+                                    <ImageNotSupportedIcon sx={{width: "50%", height: "50%"}}/>)
                             )
                         }
                         {

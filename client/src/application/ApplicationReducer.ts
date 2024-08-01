@@ -15,7 +15,9 @@ const ApplicationReducer: Reducer<ApplicationState, ApplicationCommand> = (state
         case "SetAugmentations": {
             return {
                 ...state,
-                augmentations: command.augmentations
+                augmentations: command.augmentations.sort((a, b) => {
+                    return a.name.localeCompare(b.name);
+                })
             }
         }
 

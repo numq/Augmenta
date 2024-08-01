@@ -24,6 +24,10 @@ if "%API_ONLY%"=="" (
     set API_ONLY=0
 )
 
+if "%THREAD_COUNT%"=="" (
+    set THREAD_COUNT=6
+)
+
 if not exist venv (
     call python -m venv venv
 ) else (

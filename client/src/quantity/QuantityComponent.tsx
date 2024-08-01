@@ -72,18 +72,24 @@ const QuantityComponent: React.FC<Props> = ({
                     <IconButton
                         onClick={() => decrementCategoryQuantity(1)}
                         disabled={!activeAugmentations.some(aug => aug.quantity > 0)}
-                    ><Remove/></IconButton>
+                    >
+                        <Remove/>
+                    </IconButton>
                     </span>
                 </Tooltip>
                 <Tooltip title={`Increment each ${augmentation.category} category quantity by 1`}>
-                    <IconButton onClick={() => incrementCategoryQuantity(1)}><Add/></IconButton>
+                    <IconButton onClick={() => incrementCategoryQuantity(1)}>
+                        <Add/>
+                    </IconButton>
                 </Tooltip>
                 <Tooltip title={"Reset augmentations"}>
                     <span>
                     <IconButton
                         onClick={handleOpenDialog}
                         disabled={!activeAugmentations.some(aug => aug.quantity > 0)}
-                    ><ClearAll/></IconButton>
+                    >
+                        <ClearAll/>
+                    </IconButton>
                     </span>
                 </Tooltip>
             </Box>

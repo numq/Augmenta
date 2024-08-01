@@ -1,9 +1,12 @@
-# AugmentationUI
-
-A local web application providing a UI for image augmentation based on the [albumentations](https://albumentations.ai/)
-library
-
-![Screenshot](media/screenshot.png)
+<div align="center" style="background: #7bb9dc; padding: 8px">
+<h1 style="color: #203055">Augmenta</h1>
+<img src="media/logo.png" alt="logo" height="128px"/>
+<h2 style="color: #203055">
+Local web application providing API and UI for image augmentation, based on
+the <a href="https://albumentations.ai/">albumentations</a> library
+</h2>
+<img src="media/screenshot.png" alt="screenshot"/>
+</div>
 
 ## Table of Content
 
@@ -12,14 +15,13 @@ library
 * [Installation](#installation)
 * [Usage](#usage)
 * [Custom arguments](#custom-arguments)
-* [Supported image formats](#supported-image-formats)
+* [API endpoints](#api-endpoints)
 * [List of augmentations](#list-of-augmentations)
     * [Blur](#blur)
     * [Crops](#crops)
     * [Dropout](#dropout)
     * [Geometric](#geometric)
     * [Transforms](#transforms)
-* [API endpoints](#api-endpoints)
 
 ## What is image augmentation
 
@@ -39,8 +41,8 @@ Diffusion.
 
 ## Prerequisites
 
-- **Python**: Required for the Flask-based server.
-- **Node.js**: Required for the React-based client (only if not using the `API_ONLY` argument).
+- **Python**: Required for the server
+- **Node.js**: Required for the client (only if not using the `API_ONLY` argument)
 
 ## Installation
 
@@ -116,13 +118,51 @@ Run with custom arguments
 
   Default: `0`
 
-## Supported image formats:
+## API Endpoints
 
-* `bmp`
-* `jpg`
-* `jpeg`
-* `png`
-* `webp`
+### GET /augmentations
+
+Retrieve a list of available augmentations
+
+#### Response Message Body:
+
+```json
+{
+  "augmentations": [
+    {
+      "category": "blur",
+      "id": "blur",
+      "name": "Blur"
+    },
+    {
+      "category": "blur",
+      "id": "motion_blur",
+      "name": "Motion Blur"
+    }
+  ]
+}
+```
+
+### POST /generate
+
+Apply an augmentation to an image and get the augmented image
+
+#### Request Message Body:
+
+```json
+{
+  "augmentation_id": "BlurAugmentation",
+  "image_data": "data:image/png;base64,..."
+}
+```
+
+#### Response Message Body:
+
+```json
+{
+  "image_data": "data:image/png;base64,..."
+}
+```
 
 ## List of augmentations
 
@@ -232,49 +272,3 @@ Run with custom arguments
     + Compress images using lossy compression algorithms like JPEG or WebP.
 * **Random Brightness Contrast**
     + Randomly adjust brightness and contrast of individual pixels in images.
-
-## API Endpoints
-
-### GET /augmentations
-
-Retrieve a list of available augmentations
-
-#### Response Message Body:
-
-```json
-{
-  "augmentations": [
-    {
-      "category": "blur",
-      "id": "blur",
-      "name": "Blur"
-    },
-    {
-      "category": "blur",
-      "id": "motion_blur",
-      "name": "Motion Blur"
-    }
-  ]
-}
-```
-
-### POST /generate
-
-Apply an augmentation to an image and get the augmented image
-
-#### Request Message Body:
-
-```json
-{
-  "augmentation_id": "BlurAugmentation",
-  "image_data": "data:image/png;base64,..."
-}
-```
-
-#### Response Message Body:
-
-```json
-{
-  "image_data": "data:image/png;base64,..."
-}
-```
