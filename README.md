@@ -1,7 +1,9 @@
-<div align="center" style="background: #7bb9dc; padding: 8px">
-<h1 style="color: #203055">Augmenta</h1>
+<a href="https://www.buymeacoffee.com/numq"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a one way ticket&emoji=✈️&slug=numq&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" /></a>
+
+<div align="center">
+<h1>Augmenta</h1>
 <img src="media/logo.png" alt="logo" height="128px"/>
-<h2 style="color: #203055">
+<h2>
 Local web application providing API and UI for image augmentation, based on
 the <a href="https://albumentations.ai/">albumentations</a> library
 </h2>

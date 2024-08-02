@@ -27,7 +27,6 @@ root.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
             <ApplicationComponent
-                title={document.title}
                 augmentationService={augmentationService}
                 presetService={presetService}
             />

@@ -18,19 +18,18 @@ import QuantityComponent from "../quantity/QuantityComponent";
 import ContentTab from "./ContentTab";
 
 interface Props {
-    title: string;
     augmentationService: AugmentationService,
     presetService: PresetService,
 }
 
 
-const ApplicationComponent: React.FC<Props> = ({title, augmentationService, presetService}) => {
+const ApplicationComponent: React.FC<Props> = ({augmentationService, presetService}) => {
     const [state, dispatch] = useReducer(ApplicationReducer, new ApplicationState());
 
     const tabs = useMemo(() => [ContentTab.Input, ContentTab.Output], []);
 
     const categories = useMemo(() => {
-        return [...new Set(state.augmentations.map(augmentation => augmentation.category))];
+        return [...new Set(state.augmentations.map(augmentation => augmentation.category).sort())];
     }, [state.augmentations]);
 
     const selectedCategoryAugmentations = useMemo(() => {
@@ -199,7 +198,6 @@ const ApplicationComponent: React.FC<Props> = ({title, augmentationService, pres
     }, []);
 
     useEffect(() => {
-        document.title = title;
         augmentationService.getAugmentations().then(augmentations => {
             if (augmentations.isSuccess) {
                 if (augmentations.value.length > 0) {
@@ -219,7 +217,7 @@ const ApplicationComponent: React.FC<Props> = ({title, augmentationService, pres
                 console.error(augmentations.error);
             }
         });
-    }, [augmentationService, presetService, title]);
+    }, [augmentationService, presetService]);
 
     return state.augmentations.length > 0 ? (
         <Box
