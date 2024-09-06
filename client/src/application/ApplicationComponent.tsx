@@ -16,6 +16,8 @@ import {PresetComponent} from "../preset/PresetComponent";
 import GenerationComponent from "../generation/GenerationComponent";
 import QuantityComponent from "../quantity/QuantityComponent";
 import ContentTab from "./ContentTab";
+import JSZip from "jszip";
+import {saveAs} from "file-saver";
 
 interface Props {
     augmentationService: AugmentationService,
@@ -127,8 +129,30 @@ const ApplicationComponent: React.FC<Props> = ({augmentationService, presetServi
         });
     }, [activeAugmentations, augmentationService, generationQueueSize, state.abortControllerInput?.signal]);
 
-    const download = useCallback((images: OutputImage[]) => {
-        console.log(`downloaded ${images.length} images`)
+    const download = useCallback(async (images: OutputImage[]) => {
+        const zip = new JSZip();
+
+        for (const image of images) {
+            try {
+                const byteString = atob(image.data.split(',')[1]);
+                const mimeString = image.data.split(',')[0].split(':')[1].split(';')[0];
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                const blob = new Blob([ab], {type: mimeString});
+
+                zip.file(`${image.id}.png`, blob);
+            } catch (error) {
+                console.error(`Failed to add image ${image.id} to ZIP:`, error);
+            }
+        }
+
+        zip.generateAsync({type: "blob"}).then((content) => {
+            const filename = `${Date.now()}-${Math.floor(Math.random() * 10000)}.zip`;
+            saveAs(content, filename);
+        });
     }, []);
 
     const getTabContent = useCallback((tab: ContentTab) => {
@@ -219,6 +243,10 @@ const ApplicationComponent: React.FC<Props> = ({augmentationService, presetServi
         });
     }, [augmentationService, presetService]);
 
+    useEffect(() => {
+        state.previewInputImage && generatePreviewImage(state.previewInputImage)
+    }, [state.selectedAugmentationIndex]);
+
     return state.augmentations.length > 0 ? (
         <Box
             sx={{
@@ -256,12 +284,10 @@ const ApplicationComponent: React.FC<Props> = ({augmentationService, presetServi
                     selectedCategoryIndex={state.selectedCategoryIndex}
                     selectCategoryIndex={index => {
                         dispatch({type: "SelectCategoryIndex", index: index});
-                        state.previewInputImage && generatePreviewImage(state.previewInputImage)
                     }}
                     selectedAugmentationIndex={state.selectedAugmentationIndex}
                     selectAugmentationIndex={index => {
                         dispatch({type: "SelectAugmentationIndex", index: index});
-                        state.previewInputImage && generatePreviewImage(state.previewInputImage)
                     }}
                     sx={{
                         width: "100%",
@@ -351,7 +377,7 @@ const ApplicationComponent: React.FC<Props> = ({augmentationService, presetServi
                             <Tab key={index} label={
                                 <Badge badgeContent={
                                     tab === ContentTab.Input ? state.inputImages.length : tab === ContentTab.Output ? state.outputImages.length : 0
-                                }>
+                                } color="primary">
                                     <Typography>{tab}</Typography>
                                 </Badge>
                             }/>

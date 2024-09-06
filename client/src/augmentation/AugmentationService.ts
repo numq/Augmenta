@@ -10,10 +10,8 @@ class AugmentationService {
     private readonly urlScheme: string = (window as any).REACT_APP_AUGMENTATION_SERVICE_URL_SCHEME;
     private readonly host: string = (window as any).REACT_APP_AUGMENTATION_SERVICE_HOST;
     private readonly port: string = (window as any).REACT_APP_AUGMENTATION_SERVICE_PORT;
-
-    private readonly client = axios.create({
-        baseURL: `${this.urlScheme}://${this.host}:${this.port}/`
-    });
+    private readonly baseUrl = `${this.urlScheme}://${this.host}:${this.port}/`;
+    private readonly client = axios.create({baseURL: this.baseUrl});
 
     constructor() {
         axiosRetry(this.client, {retries: Infinity});
