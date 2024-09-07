@@ -10,6 +10,10 @@ the <a href="https://albumentations.ai/">albumentations</a> library
 <img src="media/screenshot.png" alt="screenshot"/>
 </div>
 
+[![medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@numq/training-lora-with-a-single-image-the-magic-of-data-augmentation-5c1b4010d73f)
+
+[Training LoRA with a single image: The Magic of Data Augmentation](https://medium.com/@numq/training-lora-with-a-single-image-the-magic-of-data-augmentation-5c1b4010d73f)
+
 ## Table of Content
 
 * [What is image augmentation](#what-is-image-augmentation)
