@@ -21,49 +21,60 @@ fi
 source venv/bin/activate
 
 if [ "$API_ONLY" -eq 0 ]; then
-    python setup_client.py "client/build/index.html"
-
     cd client
 
-    if [ ! -d "node_modules" ]; then
-        npm install
-        if [ $? -ne 0 ]; then
-            echo "npm install failed"
-            exit 1
-        fi
-    else
-        echo "Node modules already installed. Skipping installation."
+    echo "Installing npm dependencies..."
+    npm install
+    if [ $? -ne 0 ]; then
+        echo "npm install failed"
+        exit 1
     fi
 
-    if [ ! -d "build" ]; then
-        npm run build
-        if [ $? -ne 0 ]; then
-            echo "npm build failed"
-            exit 1
-        fi
-    else
-        echo "Build directory already exists. Skipping build."
+    echo "Updating browserslist..."
+    npx update-browserslist-db@latest
+
+    if [ -d "build" ]; then
+        rm -rf build
+    fi
+    echo "Building client..."
+    npm run build
+    if [ $? -ne 0 ]; then
+        echo "npm build failed"
+        exit 1
     fi
 
     cd ..
+
+    if [ -f "client/build/index.html" ]; then
+        echo "Configuring client..."
+        python setup_client.py "client/build/index.html"
+    else
+        echo "ERROR: client/build/index.html not found after build!"
+        exit 1
+    fi
 fi
 
 cd server
 
-pip install --upgrade -r requirements.txt
+echo "Installing Python dependencies..."
+pip install --upgrade pip
+pip install --upgrade -r requirements.txt --prefer-binary
 if [ $? -ne 0 ]; then
     echo "pip install failed"
     exit 1
 fi
 
 if [ "$DISABLE_AUTO_OPEN" -eq 0 ] && [ "$API_ONLY" -eq 0 ]; then
+    echo "Opening browser..."
+    sleep 2
     if [ "$(uname)" = "Darwin" ]; then
         open "$AUGMENTATION_SERVICE_URL_SCHEME://$AUGMENTATION_SERVICE_HOST:$AUGMENTATION_SERVICE_PORT/"
     elif [ "$(uname)" = "Linux" ]; then
         xdg-open "$AUGMENTATION_SERVICE_URL_SCHEME://$AUGMENTATION_SERVICE_HOST:$AUGMENTATION_SERVICE_PORT/"
     else
-        echo "Unsupported OS: $(uname). Cannot open URL."
+        echo "Unsupported OS: $(uname). Cannot open URL automatically."
     fi
 fi
 
+echo "Starting server..."
 python main.py

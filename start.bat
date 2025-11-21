@@ -39,36 +39,43 @@ call venv\Scripts\activate
 if "%API_ONLY%"=="0" (
     cd client
 
-    if not exist node_modules (
-        call npm install
-        if errorlevel 1 (
-            echo npm install failed
-            pause
-            exit /b 1
-        )
-    ) else (
-        echo Node modules already installed. Skipping installation.
+    echo Installing npm dependencies...
+    call npm install
+    if errorlevel 1 (
+        echo npm install failed
+        pause
+        exit /b 1
     )
 
-    if not exist build (
-        call npm run build
-        if errorlevel 1 (
-            echo npm build failed
-            pause
-            exit /b 1
-        )
-    ) else (
-        echo Build directory already exists. Skipping build.
+    echo Updating browserslist...
+    call npx update-browserslist-db@latest
+
+    if exist build rmdir /s /q build
+    echo Building client...
+    call npm run build
+    if errorlevel 1 (
+        echo npm build failed
+        pause
+        exit /b 1
     )
 
     cd ..
 
-    call python setup_client.py "client/build/index.html"
+    if exist "client\build\index.html" (
+        echo Configuring client...
+        call python setup_client.py "client/build/index.html"
+    ) else (
+        echo ERROR: client/build/index.html not found after build!
+        pause
+        exit /b 1
+    )
 )
 
 cd server
 
-call pip install --upgrade -r requirements.txt
+echo Installing Python dependencies...
+call pip install --upgrade pip
+call pip install --upgrade -r requirements.txt --prefer-binary
 if errorlevel 1 (
     echo pip install failed
     pause
@@ -77,10 +84,13 @@ if errorlevel 1 (
 
 if "%DISABLE_AUTO_OPEN%"=="0" (
     if "%API_ONLY%"=="0" (
+        echo Opening browser...
+        timeout /t 2 /nobreak > nul
         start %AUGMENTATION_SERVICE_URL_SCHEME%://%AUGMENTATION_SERVICE_HOST%:%AUGMENTATION_SERVICE_PORT%/
     )
 )
 
+echo Starting server...
 call python main.py
 
 pause
