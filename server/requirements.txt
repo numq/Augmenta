@@ -1,6 +1,7 @@
-waitress~=3.0.0
-numpy~=1.26.4
-pillow~=10.4.0
-Flask~=3.0.3
-Flask-Cors~=4.0.1
-albumentations~=1.4.12
+waitress==3.0.0
+numpy==2.3.5
+pillow==10.4.0
+Flask==3.0.3
+Flask-Cors==4.0.1
+albumentations==1.4.15
+albucore==0.0.16
