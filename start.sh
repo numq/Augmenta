@@ -47,7 +47,10 @@ if [ "$API_ONLY" -eq 0 ]; then
 
     if [ -f "client/build/index.html" ]; then
         echo "Configuring client..."
-        python setup_client.py "client/build/index.html"
+        env AUGMENTATION_SERVICE_URL_SCHEME="$AUGMENTATION_SERVICE_URL_SCHEME" \
+            AUGMENTATION_SERVICE_HOST="$AUGMENTATION_SERVICE_HOST" \
+            AUGMENTATION_SERVICE_PORT="$AUGMENTATION_SERVICE_PORT" \
+            python setup_client.py "client/build/index.html"
     else
         echo "ERROR: client/build/index.html not found after build!"
         exit 1
@@ -83,4 +86,4 @@ env AUGMENTATION_SERVICE_URL_SCHEME="$AUGMENTATION_SERVICE_URL_SCHEME" \
     DISABLE_AUTO_OPEN="$DISABLE_AUTO_OPEN" \
     API_ONLY="$API_ONLY" \
     THREAD_COUNT="$THREAD_COUNT" \
-python main.py
+    python main.py
