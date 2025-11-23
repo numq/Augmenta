@@ -25,7 +25,7 @@ if "%API_ONLY%"=="" (
 )
 
 if "%THREAD_COUNT%"=="" (
-    set THREAD_COUNT=6
+    set THREAD_COUNT=2
 )
 
 if not exist venv (
